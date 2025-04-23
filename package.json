@@ -58,7 +58,6 @@
     "react-native-gesture-handler": ">=2.13.4",
     "react-native-reanimated": ">=3.5.4",
     "react-native-video": ">=5",
-    "react-native-video-cache-control": "*",
     "@shopify/flash-list": ">=1.5.0",
     "lodash": "*"
   },
