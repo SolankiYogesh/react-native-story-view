@@ -7,7 +7,6 @@ import type {
   StoryType,
 } from '../StoryView/types';
 import type React from 'react';
-import type { GestureHandlerEvent } from 'react-native-reanimated/lib/typescript/hook';
 
 export enum TransitionMode {
   Default,
@@ -45,7 +44,7 @@ export interface MultiStoryListItemProps
   isTransitionActive: boolean;
   flatListRef: any;
   storyLength: number;
-  gestureHandler?: (e: GestureHandlerEvent<any>) => void;
+  gestureHandler?: (e: any) => void;
   isInitialStory?: boolean;
   renderOverlayView?: (item: StoryType) => React.JSX.Element;
   overlayViewPostion?: 'top' | 'bottom' | 'middle';
