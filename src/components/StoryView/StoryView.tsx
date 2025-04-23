@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, useWindowDimensions, View } from 'react-native';
 import Video, { OnBufferData, OnLoadData } from 'react-native-video';
+//@ts-ignore
 import { convert } from 'react-native-video-cache';
 import { Colors, Metrics } from '../../theme';
 import ProgressiveImage from './ProgressiveImage';
@@ -14,7 +15,7 @@ const StoryView = (props: StoryViewProps) => {
   const [buffering, setBuffering] = useState(true);
   const source = props?.stories?.[props?.progressIndex];
   const videoRef = useRef<Video>(null);
-  const videoData = useRef<OnLoadData>();
+  const videoData = useRef<OnLoadData>(null);
   const isCurrentIndex = props?.index === props?.storyIndex;
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const StoryView = (props: StoryViewProps) => {
 
   const loadVideo = () => {
     if (isCurrentIndex) {
-      if (videoData.current === undefined) return;
+      if (!videoData.current) return;
       setLoading(false);
       setBuffering(false);
       props?.onVideoLoaded?.(videoData.current);
