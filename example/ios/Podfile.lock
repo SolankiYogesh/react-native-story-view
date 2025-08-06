@@ -306,9 +306,6 @@ PODS:
   - react-native-video (5.2.1):
     - React-Core
     - react-native-video/Video (= 5.2.1)
-  - react-native-video-cache-control (1.2.2):
-    - KTVHTTPCache (~> 2.0.0)
-    - React-Core
   - react-native-video/Video (5.2.1):
     - React-Core
   - React-perflogger (0.71.16)
@@ -478,7 +475,6 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-video (from `../node_modules/react-native-video`)
-  - react-native-video-cache-control (from `../node_modules/react-native-video-cache-control`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -561,8 +557,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-video:
     :path: "../node_modules/react-native-video"
-  react-native-video-cache-control:
-    :path: "../node_modules/react-native-video-cache-control"
   React-perflogger:
     :path: "../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -637,7 +631,6 @@ SPEC CHECKSUMS:
   React-logger: dc96fadd2f7f6bc38efc3cfb5fef876d4e6290a2
   react-native-safe-area-context: b97eb6f9e3b7f437806c2ce5983f479f8eb5de4b
   react-native-video: c26780b224543c62d5e1b2a7244a5cd1b50e8253
-  react-native-video-cache-control: e5631162b59daa9120551cf2145242484bf64357
   React-perflogger: c944b06edad34f5ecded0f29a6e66290a005d365
   React-RCTActionSheet: fa467f37777dacba2c72da4be7ae065da4482d7d
   React-RCTAnimation: 0591ee5f9e3d8c864a0937edea2165fe968e7099

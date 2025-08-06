@@ -26,9 +26,9 @@ $ yarn add react-native-story-view
 ##### 2. Install peer dependencies
 
 ```bash
-$ npm install react-native-video react-native-reanimated react-native-gesture-handler react-native-video-cache-control @shopify/flash-list lodash
+$ npm install react-native-video react-native-reanimated react-native-gesture-handler @shopify/flash-list lodash
 # --- or ---
-$ yarn add react-native-video react-native-reanimated react-native-gesture-handler react-native-video-cache-control @shopify/flash-list lodash
+$ yarn add react-native-video react-native-reanimated react-native-gesture-handler @shopify/flash-list lodash
 ```
 
 > Note: If you already have these libraries installed and at the latest version, you are done here!
@@ -52,53 +52,6 @@ module.exports = {
 ```
 
 <br />
-
-### Android Cache control dependency (Mandatory)
-
-> In your project's `android/app/build.gradle`
-
-```
-dependencies {
-    implementation 'com.danikula:videocache:2.7.1'
-    // Your rest of the code
-}
-```
-
-> In your project's `android/build.gradle`
-
-```
-buildscript {
-    // Your rest of the code
-}
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url 'https://jitpack.io' }
-        jcenter()
-    }
-}
-
-```
-
-#### Extra Step
-
-<b>Android:</b><br />
-If you're facing issue related to 'android-scalablevideoview' or 'videocache' module not found.
-Add this code in android's build.gradle
-
-```
-jcenter() {
-    content {
-        includeModule("com.yqritc", "android-scalablevideoview")
-        includeModule("com.danikula", "videocache")
-    }
-}
-```
-
-##### Know more about [react-native-video](https://www.npmjs.com/package/react-native-video), [react-native-reanimated](https://www.npmjs.com/package/react-native-reanimated), [react-native-gesture-handler](https://www.npmjs.com/package/react-native-gesture-handler), [react-native-video-cache-control](https://www.npmjs.com/package/react-native-video-cache-control), [@shopify/flash-list](https://www.npmjs.com/package/@shopify/flash-list) and [lodash](https://www.npmjs.com/package/lodash)
-
----
 
 ## StoryView
 
