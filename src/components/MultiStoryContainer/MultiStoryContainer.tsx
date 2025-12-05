@@ -193,12 +193,13 @@ const MultiStoryContainer = ({
               onLayout={() => setIsTransitionActive(true)}
               onViewableItemsChanged={onViewRef}
               viewabilityConfig={viewabilityConfig.current}
-              keyExtractor={item => item?.title + item?.id?.toString()}
+              keyExtractor={(item: any) => item?.title + item?.id?.toString()}
               extraData={storyIndex}
               renderItem={({ index, item }) => {
                 return (
                   <Animated.View
                     style={[styles.mainFlashListContainer, listAnimatedStyle]}>
+                    {/*@ts-ignore */}
                     <MultiStoryListItem
                       ref={(elements: any) =>
                         (itemsRef.current[index] = elements)
