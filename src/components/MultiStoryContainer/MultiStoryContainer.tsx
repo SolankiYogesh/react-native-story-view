@@ -184,10 +184,6 @@ const MultiStoryContainer = ({
               onScrollBeginDrag={onScrollBeginDragFlashList}
               onScrollEndDrag={onScrollEndDragFlashList}
               scrollEventThrottle={16}
-              style={{
-                width: Metrics.windowWidth,
-                height: Metrics.windowHeight,
-              }}
               initialScrollIndex={storyIndex}
               keyboardShouldPersistTaps={'handled'}
               onLayout={() => setIsTransitionActive(true)}
