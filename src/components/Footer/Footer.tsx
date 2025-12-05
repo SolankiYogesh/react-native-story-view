@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
 import { Icons } from '../../assets';
 import { Strings } from '../../constants';
 import { useKeyboardListener } from '../../hooks';
@@ -69,7 +70,7 @@ const Footer = ({
         )}
       </View>
       {!isKeyboardVisible && shouldShowSendImage && (
-        <TouchableOpacity onPress={onIconPress} testID="footerIcon">
+        <TouchableOpacity onPress={onIconPress} testID={'footerIcon'}>
           <Image
             source={Icons.send}
             style={_sendIconStyle}

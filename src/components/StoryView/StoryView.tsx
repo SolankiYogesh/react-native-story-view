@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, useWindowDimensions, View } from 'react-native';
 import Video, { OnBufferData, OnLoadData } from 'react-native-video';
+import { convert } from 'react-native-video-cache-turbo';
+
 import { Colors, Metrics } from '../../theme';
 import ProgressiveImage from './ProgressiveImage';
 import styles from './styles';
 import { StoryViewProps, StroyTypes } from './types';
-import { convert } from 'react-native-video-cache-turbo';
 const BUFFER_TIME = 1000 * 60;
 
 const StoryView = (props: StoryViewProps) => {
@@ -55,13 +56,13 @@ const StoryView = (props: StoryViewProps) => {
           <>
             <Video
               ref={videoRef}
-              resizeMode="contain"
+              resizeMode={'contain'}
               paused={props.pause || loading}
               source={{
                 uri: convert(source?.url ?? ''),
               }}
               onEnd={props?.onVideoEnd}
-              onError={(_error: any) => {
+              onError={() => {
                 setLoading(false);
               }}
               onProgress={data => {
@@ -87,9 +88,9 @@ const StoryView = (props: StoryViewProps) => {
             {(loading || buffering) && props?.showSourceIndicator && (
               <ActivityIndicator
                 animating
-                pointerEvents="none"
+                pointerEvents={'none'}
                 color={Colors.loaderColor}
-                size="small"
+                size={'small'}
                 style={styles.loaderView}
                 {...props?.sourceIndicatorProps}
               />

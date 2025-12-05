@@ -1,4 +1,3 @@
-import { cloneDeep } from 'lodash';
 import React, {
   forwardRef,
   useEffect,
@@ -7,11 +6,13 @@ import React, {
   useState,
 } from 'react';
 import { FlatList, View } from 'react-native';
+import { cloneDeep } from 'lodash';
+
 import { MultiStoryContainer } from '../MultiStoryContainer';
+import type { PointerType } from '../MultiStoryContainer/types';
 import { StoryAvatar } from '../StoryAvatar';
 import type { StoryType } from '../StoryView';
 import type { MultiStoryProps, MultiStoryRef } from './types';
-import type { PointerType } from '../MultiStoryContainer/types';
 
 const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
   ({ stories, transitionMode, avatarProps, ...props }, ref) => {

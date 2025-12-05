@@ -1,29 +1,29 @@
-import { AnimatedFlashList } from '@shopify/flash-list';
 import React, { forwardRef, memo, useEffect, useRef, useState } from 'react';
+import { Modal } from 'react-native';
 import {
   GestureDetector,
   GestureHandlerRootView,
 } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
-import { Colors, Metrics } from '../../theme';
+import { FlashList } from '@shopify/flash-list';
+
+import { Metrics } from '../../theme';
 import { Footer } from '../Footer';
 import { Indicator, ProfileHeader, StoryContainer } from '../StoryView';
 import { OverlayPositions } from '../StoryView/types';
 import { useMultiStoryContainer, useMultiStoryItems } from './hooks';
 import styles from './styles';
 import type {
-  ListItemProps,
   ListItemRef,
   MultiStoryContainerProps,
   MultiStoryListItemProps,
 } from './types';
-import AppModal from '../AppModal';
 
 /**
  * AnimatedFlashList is a wrapper around FlashList component to animate the list items.
  * Main purpose to wrap inside Animated to use useAnimatedScrollHandler for scroll animation.
  */
-
+const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
 const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
   (
     {
@@ -63,13 +63,12 @@ const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
     );
 
     return (
-      // @ts-ignore
       <Animated.View
         key={item.id}
         style={[styles.itemContainer, animationStyle]}>
         {storyIndex === index || isTransitionActive ? (
           <StoryContainer
-            visible={true}
+            visible
             extended={false}
             key={index + item?.id}
             ref={storyRef}
@@ -169,16 +168,9 @@ const MultiStoryContainer = ({
   if (!visible) return null;
 
   return (
-    <AppModal
-      isVisible={visible}
-      backdropColor={Colors.transparent}
-      backdropOpacity={0}
-      hasBackdrop={false}
-      onBackdropPress={() => onComplete?.()}
-      onBackButtonPress={() => onComplete?.()}>
+    <Modal visible={visible} transparent onRequestClose={() => onComplete?.()}>
       <GestureHandlerRootView style={styles.rootViewStyle}>
         <GestureDetector gesture={gestureHandler}>
-          {/* @ts-ignore*/}
           <Animated.View
             style={[styles.mainFlashListContainer, animationModalStyle]}>
             <AnimatedFlashList
@@ -192,46 +184,47 @@ const MultiStoryContainer = ({
               onScrollBeginDrag={onScrollBeginDragFlashList}
               onScrollEndDrag={onScrollEndDragFlashList}
               scrollEventThrottle={16}
-              initialScrollIndex={storyIndex}
-              estimatedItemSize={Metrics.windowWidth}
-              overrideItemLayout={layout => {
-                layout.size = Metrics.windowWidth;
+              style={{
+                width: Metrics.windowWidth,
+                height: Metrics.windowHeight,
               }}
-              keyboardShouldPersistTaps="handled"
+              initialScrollIndex={storyIndex}
+              keyboardShouldPersistTaps={'handled'}
               onLayout={() => setIsTransitionActive(true)}
               onViewableItemsChanged={onViewRef}
               viewabilityConfig={viewabilityConfig.current}
               keyExtractor={item => item?.title + item?.id?.toString()}
               extraData={storyIndex}
-              renderItem={({ item, index }: ListItemProps) => (
-                /* @ts-ignore*/
-                <Animated.View
-                  style={[styles.mainFlashListContainer, listAnimatedStyle]}>
-                  <MultiStoryListItem
-                    ref={(elements: any) =>
-                      (itemsRef.current[index] = elements)
-                    }
-                    {...{
-                      item,
-                      index,
-                      storyIndex,
-                      onComplete,
-                      viewedStories,
-                      scrollX,
-                      isTransitionActive,
-                      flatListRef,
-                      storyLength: stories.length,
-                      isInitialStory: initialStoryIndex.current === index,
-                    }}
-                    {...props}
-                  />
-                </Animated.View>
-              )}
+              renderItem={({ index, item }) => {
+                return (
+                  <Animated.View
+                    style={[styles.mainFlashListContainer, listAnimatedStyle]}>
+                    <MultiStoryListItem
+                      ref={(elements: any) =>
+                        (itemsRef.current[index] = elements)
+                      }
+                      {...{
+                        item,
+                        index,
+                        storyIndex,
+                        onComplete,
+                        viewedStories,
+                        scrollX,
+                        isTransitionActive,
+                        flatListRef,
+                        storyLength: stories.length,
+                        isInitialStory: initialStoryIndex.current === index,
+                      }}
+                      {...props}
+                    />
+                  </Animated.View>
+                );
+              }}
             />
           </Animated.View>
         </GestureDetector>
       </GestureHandlerRootView>
-    </AppModal>
+    </Modal>
   );
 };
 

@@ -20,7 +20,11 @@ const AppModal = (props: ModalProps) => {
   return (
     <View style={styles.androidFix}>
       {/* @ts-ignore  */}
-      <ReactNativeModal onModalHide={props?.onModalHide} {...props} />
+      <ReactNativeModal
+        onModalHide={props?.onModalHide}
+        {...props}
+        style={[styles.modalStyle, props?.style ?? {}]}
+      />
     </View>
   );
 };
@@ -30,6 +34,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     inset: 0,
     flex: 1,
+  },
+  modalStyle: {
+    padding: 0,
+    margin: 0,
   },
 });
 

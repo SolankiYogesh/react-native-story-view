@@ -15,10 +15,11 @@ import {
   ViewStyle,
 } from 'react-native';
 import Animated from 'react-native-reanimated';
+
 import { Metrics } from '../../theme';
+import { useStoryContainer } from './hooks';
 import ProgressView from './ProgressView';
 import StoryView from './StoryView';
-import { useStoryContainer } from './hooks';
 import styles from './styles';
 import {
   ClickPosition,
@@ -59,7 +60,6 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
       setPause,
       isLoaded,
       duration,
-      opacity,
       onImageLoaded,
       onVideoLoaded,
       changeStory,
@@ -73,7 +73,6 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
       isKeyboardVisible,
       setVideoDuration,
       onStoryPressRelease,
-      setVisibleElements,
       rootStyle,
       containerStyle,
     } = useStoryContainer(props, viewedStories);
@@ -88,7 +87,6 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
       },
       handleLongPress: (visibility: boolean) => {
         if (props?.index === props?.userStoryIndex) {
-          setVisibleElements(!visibility);
           setPause(visibility);
         }
       },
@@ -178,9 +176,7 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
                 />
               </TouchableOpacity>
               {enableProgress && (
-                <View
-                  style={[styles.progressView, { opacity }]}
-                  {...progressViewProps}>
+                <View style={styles.progressView} {...progressViewProps}>
                   <ProgressView
                     next={() => onArrowClick(ClickPosition.Right)}
                     isLoaded={isLoaded}
@@ -201,11 +197,7 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
               )}
               {renderHeaderComponent && (
                 <View
-                  style={[
-                    styles.topView,
-                    props?.headerStyle ?? {},
-                    { opacity },
-                  ]}
+                  style={[styles.topView, props?.headerStyle ?? {}]}
                   {...headerViewProps}>
                   <>
                     {renderHeaderComponent?.({
@@ -219,11 +211,7 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
               )}
               {renderCustomView && (
                 <View
-                  style={[
-                    styles.customView,
-                    props?.customViewStyle ?? {},
-                    { opacity },
-                  ]}
+                  style={[styles.customView, props?.customViewStyle ?? {}]}
                   {...customViewProps}>
                   <>
                     {renderCustomView?.({
@@ -240,11 +228,7 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
           {renderFooterComponent && (
             /* @ts-ignore*/
             <Animated.View
-              style={[
-                styles.bottomView,
-                props?.footerStyle ?? {},
-                { opacity, bottom },
-              ]}
+              style={[styles.bottomView, props?.footerStyle ?? {}, { bottom }]}
               onLayout={({ nativeEvent }) => {
                 setViewHeight(nativeEvent.layout.height);
               }}

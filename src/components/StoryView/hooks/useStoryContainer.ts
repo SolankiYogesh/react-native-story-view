@@ -13,6 +13,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import type { OnLoadData, OnProgressData } from 'react-native-video';
+
 import { useKeyboardListener } from '../../../hooks';
 import { Colors, Metrics } from '../../../theme';
 import styles from '../styles';
@@ -31,7 +32,6 @@ const useStoryContainer = (
   const [isLoaded, setLoaded] = useState(false);
   const [duration, setDuration] = useState(0);
   const [isPause, setPause] = useState(true);
-  const [visibleElements, setVisibleElements] = useState(true);
   const appState = useRef(AppState.currentState);
   // Prop extended is used to determine the story mode, that is being used internally in StoryContainer
   const storyMode: StoryMode = props?.extended
@@ -188,14 +188,13 @@ const useStoryContainer = (
 
   const onStoryPressHold = () => {
     if (storyMode === StoryMode.MultiStory) return;
-    setVisibleElements(false);
+
     setPause(true);
   };
 
   const onStoryPressRelease = () => {
     if (storyMode === StoryMode.MultiStory) return;
-    if (isPause && !visibleElements) {
-      setVisibleElements(true);
+    if (isPause) {
       setPause(false);
     }
   };
@@ -219,7 +218,6 @@ const useStoryContainer = (
     progressIndex,
     isLoaded,
     duration,
-    setVisibleElements,
     videoDuration,
     setPause,
     setLoaded,
@@ -234,7 +232,6 @@ const useStoryContainer = (
     setVideoDuration,
     onStoryPressRelease,
     isKeyboardVisible,
-    opacity: visibleElements ? 1 : 0,
     rootStyle,
     containerStyle,
   };

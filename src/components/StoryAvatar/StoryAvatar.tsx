@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Animated from 'react-native-reanimated';
+
 import useCircleAnimation from './hooks/useCircleAnimation';
 import styles from './styles';
 import type { StoryAvatarProps } from './types';
@@ -47,12 +48,10 @@ const StoryAvatar = forwardRef<View, StoryAvatarProps>(
       <Pressable
         onPress={gestureEvents => openStories?.(index, gestureEvents)}
         {...rootProps}>
-        {/* @ts-ignore*/}
         <Animated.View ref={ref}>
           <View style={_containerStyle}>
-            {/* @ts-ignore*/}
             <Animated.Image
-              resizeMode="cover"
+              resizeMode={'cover'}
               source={{ uri: item?.profile }}
               style={[_userImageStyle, avatarAnimatedStyle]}
               {...userImageProps}
