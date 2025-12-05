@@ -116,7 +116,7 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
         : 0;
 
     const overlayViewStyles = useMemo(() => {
-      let style: StyleProp<ViewStyle> = [styles.overlayViewStyle];
+      const style: StyleProp<ViewStyle> = [styles.overlayViewStyle];
 
       if (overlayViewPostion === OverlayPositions.Middle) {
         style.push(styles.overlayMiddleViewStyle);
@@ -238,6 +238,7 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
             </View>
           </View>
           {renderFooterComponent && (
+            /* @ts-ignore*/
             <Animated.View
               style={[
                 styles.bottomView,

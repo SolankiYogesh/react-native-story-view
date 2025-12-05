@@ -70,7 +70,7 @@ const useMultiStoryContainer = (
 
   useEffect(() => {
     if (visible) {
-      layoutValue.value = withTiming(1, { duration: 400 }); // Default open Modal animation duration is 400
+      layoutValue.value = withTiming(1, { duration: 400 });
     }
   }, [layoutValue, visible]);
 

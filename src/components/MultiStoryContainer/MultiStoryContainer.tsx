@@ -1,15 +1,14 @@
-import { FlashList, FlashListProps } from '@shopify/flash-list';
+import { AnimatedFlashList } from '@shopify/flash-list';
 import React, { forwardRef, memo, useEffect, useRef, useState } from 'react';
-import { Modal } from 'react-native';
 import {
   GestureDetector,
   GestureHandlerRootView,
 } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
-import { Metrics } from '../../theme';
+import { Colors, Metrics } from '../../theme';
 import { Footer } from '../Footer';
 import { Indicator, ProfileHeader, StoryContainer } from '../StoryView';
-import { OverlayPositions, type StoriesType } from '../StoryView/types';
+import { OverlayPositions } from '../StoryView/types';
 import { useMultiStoryContainer, useMultiStoryItems } from './hooks';
 import styles from './styles';
 import type {
@@ -18,13 +17,12 @@ import type {
   MultiStoryContainerProps,
   MultiStoryListItemProps,
 } from './types';
+import AppModal from '../AppModal';
 
 /**
  * AnimatedFlashList is a wrapper around FlashList component to animate the list items.
  * Main purpose to wrap inside Animated to use useAnimatedScrollHandler for scroll animation.
  */
-const AnimatedFlashList =
-  Animated.createAnimatedComponent<FlashListProps<StoriesType>>(FlashList);
 
 const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
   (
@@ -65,44 +63,43 @@ const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
     );
 
     return (
-      <>
-        <Animated.View
-          key={item.id}
-          style={[styles.itemContainer, animationStyle]}>
-          {storyIndex === index || isTransitionActive ? (
-            <StoryContainer
-              visible={true}
-              extended={false}
-              key={index + item?.id}
-              ref={storyRef}
-              userStories={item}
-              nextStory={nextStory}
-              previousStory={previousStory}
-              stories={item.stories}
-              progressIndex={storyInitialIndex < 0 ? 0 : storyInitialIndex}
-              maxVideoDuration={15}
-              renderOverlayView={renderOverlayView}
-              overlayViewPostion={overlayViewPostion}
-              renderHeaderComponent={() => (
-                <ProfileHeader
-                  userImage={{ uri: item.profile ?? '' }}
-                  userName={item.username}
-                  userMessage={item.title}
-                  onClosePress={() => {
-                    onComplete?.();
-                  }}
-                />
-              )}
-              renderFooterComponent={() => <Footer />}
-              {...props}
-              index={index}
-              userStoryIndex={storyIndex}
-            />
-          ) : (
-            props?.renderIndicatorComponent?.() ?? <Indicator />
-          )}
-        </Animated.View>
-      </>
+      // @ts-ignore
+      <Animated.View
+        key={item.id}
+        style={[styles.itemContainer, animationStyle]}>
+        {storyIndex === index || isTransitionActive ? (
+          <StoryContainer
+            visible={true}
+            extended={false}
+            key={index + item?.id}
+            ref={storyRef}
+            userStories={item}
+            nextStory={nextStory}
+            previousStory={previousStory}
+            stories={item.stories}
+            progressIndex={storyInitialIndex < 0 ? 0 : storyInitialIndex}
+            maxVideoDuration={15}
+            renderOverlayView={renderOverlayView}
+            overlayViewPostion={overlayViewPostion}
+            renderHeaderComponent={() => (
+              <ProfileHeader
+                userImage={{ uri: item.profile ?? '' }}
+                userName={item.username}
+                userMessage={item.title}
+                onClosePress={() => {
+                  onComplete?.();
+                }}
+              />
+            )}
+            renderFooterComponent={() => <Footer />}
+            {...props}
+            index={index}
+            userStoryIndex={storyIndex}
+          />
+        ) : (
+          props?.renderIndicatorComponent?.() ?? <Indicator />
+        )}
+      </Animated.View>
     );
   }
 );
@@ -172,12 +169,16 @@ const MultiStoryContainer = ({
   if (!visible) return null;
 
   return (
-    <Modal
-      visible={visible}
-      transparent={true}
-      onRequestClose={() => onComplete?.()}>
+    <AppModal
+      isVisible={visible}
+      backdropColor={Colors.transparent}
+      backdropOpacity={0}
+      hasBackdrop={false}
+      onBackdropPress={() => onComplete?.()}
+      onBackButtonPress={() => onComplete?.()}>
       <GestureHandlerRootView style={styles.rootViewStyle}>
         <GestureDetector gesture={gestureHandler}>
+          {/* @ts-ignore*/}
           <Animated.View
             style={[styles.mainFlashListContainer, animationModalStyle]}>
             <AnimatedFlashList
@@ -203,6 +204,7 @@ const MultiStoryContainer = ({
               keyExtractor={item => item?.title + item?.id?.toString()}
               extraData={storyIndex}
               renderItem={({ item, index }: ListItemProps) => (
+                /* @ts-ignore*/
                 <Animated.View
                   style={[styles.mainFlashListContainer, listAnimatedStyle]}>
                   <MultiStoryListItem
@@ -229,7 +231,7 @@ const MultiStoryContainer = ({
           </Animated.View>
         </GestureDetector>
       </GestureHandlerRootView>
-    </Modal>
+    </AppModal>
   );
 };
 

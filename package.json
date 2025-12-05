@@ -1,6 +1,6 @@
 {
   "name": "react-native-story-view",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "React Native component to provide status/stories feature.",
   "main": "lib/index",
   "types": "lib/index.d.ts",
@@ -53,13 +53,15 @@
     "example": "yarn --cwd example"
   },
   "peerDependencies": {
-    "@shopify/flash-list": ">=1.5.0",
+    "@shopify/flash-list": ">=2.2.0",
     "lodash": "*",
     "react": "*",
     "react-native": "*",
-    "react-native-gesture-handler": ">=2.13.4",
+    "react-native-gesture-handler": ">=2.29.1",
+    "react-native-modal": ">=14.0.0-rc.1",
     "react-native-reanimated": ">=3.5.4",
-    "react-native-video": ">=5"
+    "react-native-video": ">=6.18.0",
+    "react-native-video-cache-turbo": ">=0.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -135,5 +137,9 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
+  },
+  "dependencies": {
+    "react-native-modal": "^14.0.0-rc.1",
+    "react-native-video-cache-turbo": "^0.3.1"
   }
 }
