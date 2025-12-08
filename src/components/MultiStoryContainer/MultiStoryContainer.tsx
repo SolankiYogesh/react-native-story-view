@@ -7,7 +7,6 @@ import {
 import Animated from 'react-native-reanimated';
 import { FlashList } from '@shopify/flash-list';
 
-import { Metrics } from '../../theme';
 import { Footer } from '../Footer';
 import { Indicator, ProfileHeader, StoryContainer } from '../StoryView';
 import { OverlayPositions } from '../StoryView/types';
