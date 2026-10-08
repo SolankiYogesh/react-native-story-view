@@ -50,17 +50,17 @@ const Footer = ({
   return (
     <View style={_containerStyle} {...containerViewProps}>
       <View style={styles.sectionStyle}>
-        <>
-          {customInput ?? (
-            <TextInput
-              ref={ref}
-              style={_inputStyle}
-              placeholder={Strings.sendMessage}
-              placeholderTextColor={Colors.white}
-              {...rest}
-            />
-          )}
-        </>
+      <View style={styles.sectionStyle}>
+  {customInput ?? (
+    <TextInput
+      ref={ref}
+      style={_inputStyle}
+      placeholder={Strings.sendMessage}
+      placeholderTextColor={Colors.white}
+      {...rest}
+    />
+  )}
+</View>
         {isKeyboardVisible && shouldShowTextInputSend && (
           <TouchableOpacity onPress={handleSendTextPress}>
             <Text style={_sendTextStyle} {...sendTextProps}>
